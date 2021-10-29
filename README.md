@@ -1,4 +1,4 @@
-# Programacion3Parcial2
+# programacion3Parcial2
 # proyecto2021-arguello-gonzalezachaval-llabres
 
 ## Autores: 
