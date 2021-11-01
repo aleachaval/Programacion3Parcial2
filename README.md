@@ -9,7 +9,7 @@
 ## Datos personales:
 |  Email  | Número de teléfono |
 |---------|--------------------|
-| @edu.com.ar | 351-6331542 |
+| 2010667@edu.com.ar | 351-6331542 |
 | 2008570@edu.com.ar | 351-7885604 |
 | 2009131@edu.com.ar | 351-3904413 |
 
