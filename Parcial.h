@@ -103,7 +103,7 @@ void estadisticas(vector<vector<string>> *tabla) {
 }
 
 /*
- *
+ * Funcion que ordena y muestra las provincias con mas contagiados
  */
 void casosSegunProvincias(int Arg, vector<vector<string>> *tabla) {
     vector<string> provincias;
@@ -162,7 +162,7 @@ void casosSegunProvincias(int Arg, vector<vector<string>> *tabla) {
 }
 
 /*
- *
+ * Funcion que ordena y muestra las provincias con mas fallecidos
  */
 void fallecidos_provincias(int Arg, vector<vector<string>> *tabla) {//ANDA BIEN
     vector<string> provincias;
