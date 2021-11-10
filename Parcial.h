@@ -14,7 +14,6 @@
 using namespace std;
 
 
-
 /*
 * Funcion AbrirCSV
 * De esta funcion se crea la tabla a partir del .csv
@@ -36,17 +35,20 @@ vector<vector<string>> AbrirCSV(string path) {
 
     while (getline(csv, linea)) { //Obtenemos los string del csv
         filas.clear();
-        stringstream lineStream(linea); //Declaramos una variable de tipo stringstream, para poder extraer los strings y manipular la data
+        stringstream lineStream(
+                linea); //Declaramos una variable de tipo stringstream, para poder extraer los strings y manipular la data
         index = 0;
         while (getline(lineStream, palabra, ',')) { //Leemos cada palabra del dataset, separada por coma
             //0 = id_evento_caso 2 = edad, 5 = nombre de provincia, 12 = SI o NO en cui, 13 = fecha_cui intensivo, 14 = fallecido, 20 = clasificacion, 21 = idProvincia
-            if (index == 0 || index == 2 || index == 5 || index == 12 || index == 13 || index == 14 || index == 20 || index == 21) { //Tomamos los índices de columnas que nos interesan
+            if (index == 0 || index == 2 || index == 5 || index == 12 || index == 13 || index == 14 || index == 20 ||
+                index == 21) { //Tomamos los índices de columnas que nos interesan
                 if (palabra.size() > 0) { //Si existe alguna palabra
                     palabra = palabra.substr(1, palabra.size() - 2); //La colocamos en la variable palabra sin las " "
                 } else {
                     palabra = "null"; //Sino le asignamos "null", para que no quede vacía
                 }
-                filas.push_back(palabra); //Insertamos las palabras en el vector row que corresponde a las filas de la nueva tabla
+                filas.push_back(
+                        palabra); //Insertamos las palabras en el vector row que corresponde a las filas de la nueva tabla
             }
             index++;
         }
@@ -60,7 +62,7 @@ vector<vector<string>> AbrirCSV(string path) {
  * Devuelve las estadisticas de los casos
  */
 void estadisticas(vector<vector<string>> *tabla) {
-    int infectados = 0, fallecidos = 0 , casos_totales = (*tabla).size() - 1; //Tamanio hasta el index del last element.
+    int infectados = 0, fallecidos = 0, casos_totales = (*tabla).size() - 1; //Tamanio hasta el index del last element.
     int i, j;
 
     for (i = 1; i < (*tabla).size(); i++) {
@@ -112,19 +114,19 @@ void casosSegunProvincias(int Arg, vector<vector<string>> *tabla) {
 
     bool bandera;
     for (int i = 1; i < (*tabla).size(); i++) {
-        if ((*tabla)[i][2] != "null" && (*tabla)[i][2] !="SIN ESPECIFICAR") {
+        if ((*tabla)[i][2] != "null" && (*tabla)[i][2] != "SIN ESPECIFICAR") {
             if (provincias.empty()) //Y si el vector esta vacio nos devuelve un true
                 provincias.push_back((*tabla)[i][2]); //Le pusheamos los datos de las provincias
-                else {
-                    bandera = false; //Sino seteamos la bandera bandera como falsa
-                    for (int j = 0; j < provincias.size(); j++) {//Recorremos el vector
-                        if (provincias[j] == (*tabla)[i][2]) { //y comparamos los valores de la tabla original y el vector
-                            bandera = true;
-                        }
+            else {
+                bandera = false; //Sino seteamos la bandera bandera como falsa
+                for (int j = 0; j < provincias.size(); j++) {//Recorremos el vector
+                    if (provincias[j] == (*tabla)[i][2]) { //y comparamos los valores de la tabla original y el vector
+                        bandera = true;
                     }
-                    if (!bandera)//Si el booleano es falso porque coincidieron los datos
-                        provincias.push_back((*tabla)[i][2]);//Agregamos los datos de las provincias
                 }
+                if (!bandera)//Si el booleano es falso porque coincidieron los datos
+                    provincias.push_back((*tabla)[i][2]);//Agregamos los datos de las provincias
+            }
 
         }
     }
@@ -207,7 +209,8 @@ void fallecidos_provincias(int Arg, vector<vector<string>> *tabla) {//ANDA BIEN
      */
     std::vector<std::size_t> index(provincias.size());
     std::iota(index.begin(), index.end(), 0);
-    std::sort(index.begin(), index.end(), [&](size_t a, size_t b) { return Total_Fallecidos[a] > Total_Fallecidos[b]; });
+    std::sort(index.begin(), index.end(),
+              [&](size_t a, size_t b) { return Total_Fallecidos[a] > Total_Fallecidos[b]; });
 
     /*
  * Funcion que lee el argumento "n" y ordena los datos
@@ -242,42 +245,41 @@ void casos_edad(int Arg, vector<vector<string>> *tabla) {
     sstream << Arg;
     string num_str = sstream.str();
 
-for (int i = 1; i < (*tabla).size(); i++) {
-    if ((*tabla)[i][1] != "null" && (*tabla)[i][1]==num_str)  {
+    for (int i = 1; i < (*tabla).size(); i++) {
+        if ((*tabla)[i][1] != "null" && (*tabla)[i][1] == num_str) {
             edad.push_back((*tabla)[i][1]);
             provincias.push_back((*tabla)[i][2]);
             ids.push_back((*tabla)[i][0]);
             confirmado.push_back((*tabla)[i][6]);
-         }
-    }
-
-
-string aux1, aux2, aux3;
-
-// Ordenar nombre de provincias alfabeticamente y se usamos el mismo ordenamiento para hacer coincidir los datos
-for(int i=0;i<provincias.size();i++){
-    for(int j=i+1;j<provincias.size();j++){
-        if(provincias[i]>provincias[j]){
-            aux1 = provincias[j];
-            provincias[j] = provincias[i];
-            provincias[i] = aux1;
-
-            aux2 = ids[j];
-            ids[j] = ids[i];
-            ids[i] = aux2;
-
-            aux3 = confirmado[j];
-            confirmado[j] = confirmado[i];
-            confirmado[i] = aux3;
         }
     }
-}
 
-for (int i = 0; i < edad.size(); i++) {
+
+    string aux1, aux2, aux3;
+
+// Ordenar nombre de provincias alfabeticamente y se usamos el mismo ordenamiento para hacer coincidir los datos
+    for (int i = 0; i < provincias.size(); i++) {
+        for (int j = i + 1; j < provincias.size(); j++) {
+            if (provincias[i] > provincias[j]) {
+                aux1 = provincias[j];
+                provincias[j] = provincias[i];
+                provincias[i] = aux1;
+
+                aux2 = ids[j];
+                ids[j] = ids[i];
+                ids[i] = aux2;
+
+                aux3 = confirmado[j];
+                confirmado[j] = confirmado[i];
+                confirmado[i] = aux3;
+            }
+        }
+    }
+
+    for (int i = 0; i < edad.size(); i++) {
         cout << edad[i] << " / " << provincias[i] << " / " << ids[i] << " / " << confirmado[i] << endl;
     }
 }
-
 
 
 /*
@@ -297,27 +299,54 @@ void casos_cui(int arg, vector<vector<string>> *tabla) {
     std::stringstream sstream;
     sstream << arg;
     string num_str = sstream.str();
-    string auxarray[10];
+
+    if(num_str != "0"){
+    num_str.insert(4, "-");
+    num_str.insert(7, "-");
+    }
 
 
-
-    for(int i=0;i<num_str.size();i++){
-        if (i==3){
-            auxarray[i];
+    for (int i = 1; i < (*tabla).size(); i++) {
+        if ((*tabla)[i][4] != "null" && (*tabla)[i][4]>num_str) {
+                fechaintensivo.push_back((*tabla)[i][4]);
+                edad.push_back((*tabla)[i][1]);
+                provincia.push_back((*tabla)[i][2]);
         }
     }
-    cout<<num_str;
-    for (int i = 1; i < (*tabla).size(); i++) {
-        if((*tabla)[i][4] != "null" &&  (*tabla)[i][4] > "2020-07-01"){
-      fechaintensivo.push_back((*tabla)[i][4]);
-    }
+
+
+    string aux1, aux2, aux3;
+
+    // Ordena de menor a mayor las fechas y demas variables
+    for (int i = 0; i < fechaintensivo.size(); i++) {
+        for (int j = i + 1; j < fechaintensivo.size(); j++) {
+            if (fechaintensivo[i] > fechaintensivo[j]) {
+                aux1 = fechaintensivo[j];
+                fechaintensivo[j] = fechaintensivo[i];
+                fechaintensivo[i] = aux1;
+
+                aux2 = edad[j];
+                edad[j] = edad[i];
+                edad[i] = aux2;
+
+                aux3 = provincia[j];
+                provincia[j] = provincia[i];
+                provincia[i] = aux3;
+            }
+        }
     }
 
+
     for (int i = 0; i < fechaintensivo.size(); i++) {
-        cout << fechaintensivo[i] << endl;
+        cout << fechaintensivo[i] << " / " << edad[i] << " / " << provincia[i] << endl;
     }
 }
 
+
+/*
+Funcion str2int
+Convierte string a int para el uso de los argumentos
+*/
 constexpr unsigned int str2int(const char *str, int h = 0) {
     return !str[h] ? 5381 : (str2int(str, h + 1) * 33) ^ str[h];
 }
