@@ -340,6 +340,7 @@ void casos_cui(int arg, vector<vector<string>> *tabla) {
     for (int i = 0; i < fechaintensivo.size(); i++) {
         cout << fechaintensivo[i] << " / " << edad[i] << " / " << provincia[i] << endl;
     }
+    cout<<"Si no anduvo correctamente, entonces reeingresar la fecha sin guiones("-") como esta indicado en el main";
 }
 
 
